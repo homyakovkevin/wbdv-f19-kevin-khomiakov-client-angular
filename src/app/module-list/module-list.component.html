@@ -1,1 +1,10 @@
-<p>module-list works!</p>
+<h3>{{courseTitle}}</h3>
+<ul>
+  <li class="list-group-item wbdv-link wbdv-module" *ngFor="let module of modules"
+      [ngClass]="{'active': module.id == selectedModuleId}">
+    <a routerLink="/courses/{{selectedCourseId}}/modules/{{module.id}}/lessons">
+      {{module.title}}
+    </a>
+  </li>
+</ul>
+

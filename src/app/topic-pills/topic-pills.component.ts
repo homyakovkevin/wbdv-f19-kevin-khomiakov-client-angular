@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TopicServiceClient} from '../../services/TopicServiceClient';
 
 @Component({
   selector: 'app-topic-pills',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopicPillsComponent implements OnInit {
 
-  constructor() { }
+  courseId = 0;
+  moduleId = 0;
+  lessonId = 0;
+  topicId = 0;
+  topics = [];
 
-  ngOnInit() {
+  constructor(private topicService: TopicServiceClient, private activatedRoute: ActivatedRoute) {
   }
 
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.courseId = params.courseId;
+      this.moduleId = params.moduleId;
+      this.lessonId = params.lessonId;
+      this.topicId = params.topicId;
+      if (this.lessonId != null) {
+        this.topicService.findTopicsForLesson(this.lessonId).then(topics => this.topics = topics);
+      }
+    });
+  }
 }

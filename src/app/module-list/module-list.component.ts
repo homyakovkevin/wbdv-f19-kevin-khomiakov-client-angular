@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ModuleServiceClient} from '../../services/ModuleServiceClient';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CourseServiceClient} from '../../services/CourseServiceClient';
 
 @Component({
   selector: 'app-module-list',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleListComponent implements OnInit {
 
-  constructor() { }
+
+  modules = [];
+  selectedCourseId = 0;
+  selectedModuleId = 0;
+  courseTitle = '';
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private moduleService: ModuleServiceClient,
+              private courseService: CourseServiceClient) {
+  }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(
+      params => {
+        this.selectedCourseId = params.courseId;
+        this.selectedModuleId = params.moduleId;
+        this.moduleService.findModulesForCourse(this.selectedCourseId).then(modules => this.modules = modules);
+        this.courseService.findCourseById(this.selectedCourseId).then(course => this.courseTitle = course.title);
+      });
   }
+
 
 }

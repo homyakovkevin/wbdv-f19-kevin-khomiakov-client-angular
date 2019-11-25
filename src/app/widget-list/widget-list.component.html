@@ -1,1 +1,21 @@
-<p>widget-list works!</p>
+<div class="row" *ngFor="let widget of widgets">
+  <h1 *ngIf="widget.size == 'h1'">{{widget.text}}</h1>
+  <h2 *ngIf="widget.size == 'h2'">{{widget.text}}</h2>
+  <h3 *ngIf="widget.size == 'h3'">{{widget.text}}</h3>
+  <h4 *ngIf="widget.size == 'h4'">{{widget.text}}</h4>
+  <h5 *ngIf="widget.size == 'h5'">{{widget.text}}</h5>
+  <h6 *ngIf="widget.size == 'h6'">{{widget.text}}</h6>
+  <p *ngIf="widget.type == 'PARAGRAPH'">{{widget.text}}</p>
+  <a *ngIf="widget.type == 'LINK'" href="{{widget.href}}">{{widget.title}}</a>
+  <img *ngIf="widget.type == 'IMAGE'" src="{{widget.src}}" alt=""/>
+  <div *ngIf="widget.type == 'LIST' && widget.listType == 'unordered'">
+    <ul *ngFor="let item of widget.items.split(',')">
+      <li>{{item}}</li>
+    </ul>
+  </div>
+  <div *ngIf="widget.type == 'LIST' && widget.listType == 'ordered'">
+    <ol *ngFor="let item of widget.items.split(',')">
+      <li>{{item}}</li>
+    </ol>
+  </div>
+</div>

@@ -1,1 +1,11 @@
-<p>topic-pills works!</p>
+<ul class="nav nav-pills">
+  <li class="nav-item wbdv-link wbdv-topic" *ngFor="let topic of topics">
+    <a class="nav-link"
+       [ngClass]="{'active': topic.id == topicId}"
+       routerLink="/courses/{{courseId}}/modules/{{moduleId}}/lessons/{{lessonId}}/topics/{{topic.id}}/widgets">
+      {{topic.title}}
+    </a>
+  </li>
+</ul>
+
+

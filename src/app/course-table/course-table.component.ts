@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CourseServiceClient} from '../../services/CourseServiceClient';
 
 @Component({
-  selector: 'app-course-table',
+  selector: 'app-course-navigator',
   templateUrl: './course-table.component.html',
   styleUrls: ['./course-table.component.css']
 })
+
 export class CourseTableComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private service: CourseServiceClient) {
   }
 
+  courses = [];
+
+  ngOnInit() {
+    this.service.findAllCourses()
+      .then(courses => this.courses = courses);
+  }
 }
